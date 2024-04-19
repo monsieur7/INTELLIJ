@@ -1,0 +1,7 @@
+19-Apr-24 12:02:51 - Starting cleanup process...
+19-Apr-24 12:02:51 - Recordings: [b"{'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-114727.wav', 'timestamp': '2024-04-19 11:47:47'}", b"{'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-114937.wav', 'timestamp': '2024-04-19 11:49:50'}", b"{'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-115259.wav', 'timestamp': '2024-04-19 11:53:10'}", b"{'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-115425.wav', 'timestamp': '2024-04-19 11:54:36'}"]
+19-Apr-24 12:02:51 - Recording: {'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-114727.wav', 'timestamp': '2024-04-19 11:47:47'}
+19-Apr-24 12:02:51 - Recording: {'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-114937.wav', 'timestamp': '2024-04-19 11:49:50'}
+19-Apr-24 12:02:51 - Recording: {'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-115259.wav', 'timestamp': '2024-04-19 11:53:10'}
+19-Apr-24 12:02:51 - Recording: {'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-115425.wav', 'timestamp': '2024-04-19 11:54:36'}
+19-Apr-24 12:02:51 - Waiting for 30 seconds...

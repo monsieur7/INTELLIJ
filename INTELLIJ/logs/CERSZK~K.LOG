@@ -1,0 +1,20 @@
+19-Apr-24 12:06:24 - Starting cleanup process...
+19-Apr-24 12:06:24 - Recordings: [b"{'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-114727.wav', 'timestamp': '2024-04-19 11:47:47'}", b"{'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-114937.wav', 'timestamp': '2024-04-19 11:49:50'}", b"{'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-115259.wav', 'timestamp': '2024-04-19 11:53:10'}", b"{'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-115425.wav', 'timestamp': '2024-04-19 11:54:36'}", b"{'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-120258.wav', 'timestamp': '2024-04-19 12:03:32'}", b"{'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-120303.wav', 'timestamp': '2024-04-19 12:04:03'}"]
+19-Apr-24 12:06:24 - Recording: {'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-114727.wav', 'timestamp': '2024-04-19 11:47:47'}
+19-Apr-24 12:06:24 - Recording: {'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-114937.wav', 'timestamp': '2024-04-19 11:49:50'}
+19-Apr-24 12:06:24 - Recording: {'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-115259.wav', 'timestamp': '2024-04-19 11:53:10'}
+19-Apr-24 12:06:24 - Recording: {'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-115425.wav', 'timestamp': '2024-04-19 11:54:36'}
+19-Apr-24 12:06:24 - Recording: {'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-120258.wav', 'timestamp': '2024-04-19 12:03:32'}
+19-Apr-24 12:06:24 - Recording: {'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-120303.wav', 'timestamp': '2024-04-19 12:04:03'}
+19-Apr-24 12:06:24 - Waiting for 30 seconds...
+19-Apr-24 12:11:25 - No q received, continuing...
+19-Apr-24 12:11:25 - Cleanup process finished.
+19-Apr-24 12:11:25 - Recordings: [b"{'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-114727.wav', 'timestamp': '2024-04-19 11:47:47'}", b"{'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-114937.wav', 'timestamp': '2024-04-19 11:49:50'}", b"{'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-115259.wav', 'timestamp': '2024-04-19 11:53:10'}", b"{'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-115425.wav', 'timestamp': '2024-04-19 11:54:36'}", b"{'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-120258.wav', 'timestamp': '2024-04-19 12:03:32'}", b"{'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-120303.wav', 'timestamp': '2024-04-19 12:04:03'}", b"{'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-120642.wav', 'timestamp': '2024-04-19 12:07:09'}"]
+19-Apr-24 12:11:25 - Recording: {'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-114727.wav', 'timestamp': '2024-04-19 11:47:47'}
+19-Apr-24 12:11:25 - Recording: {'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-114937.wav', 'timestamp': '2024-04-19 11:49:50'}
+19-Apr-24 12:11:25 - Recording: {'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-115259.wav', 'timestamp': '2024-04-19 11:53:10'}
+19-Apr-24 12:11:25 - Recording: {'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-115425.wav', 'timestamp': '2024-04-19 11:54:36'}
+19-Apr-24 12:11:25 - Recording: {'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-120258.wav', 'timestamp': '2024-04-19 12:03:32'}
+19-Apr-24 12:11:25 - Recording: {'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-120303.wav', 'timestamp': '2024-04-19 12:04:03'}
+19-Apr-24 12:11:25 - Recording: {'url': '/home/pi/Desktop/INTELLIJ/recordings/recording20240419-120642.wav', 'timestamp': '2024-04-19 12:07:09'}
+19-Apr-24 12:11:25 - Waiting for 30 seconds...

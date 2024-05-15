@@ -9,8 +9,11 @@ pressure.html
 record.html
 temperature.html
 # API-REST
-api-rest.py
+api-rest.py # Python flask webserver 
 # Servers
-main.js
-coap.js
-mqtt.js
+main.js # main HTTP server
+coap.js # coap webserver
+mqtt.js # mqtt server
+#Python lib
+devicesPython/lcd_setup.py # class to handle the lcd screen
+devicesPython/mic.py # class to handle the microphone

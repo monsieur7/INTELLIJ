@@ -40,12 +40,14 @@
                 .then(response => response.json())
                 .then(data => {
                     //formatting data.timestamp in something that can be used by google charts
-                    timestamp = new Date(data.timestamp);
-                    data.addRow([timestamp, data.value]);
-                    if (data.getNumberOfRows() > 10) {
-                        data.removeRow(0);
+                    if (data != {}) {//if data has been loaded (google charts also !)
+                        timestamp = new Date(data.timestamp);
+                        data.addRow([timestamp, data.value]);
+                        if (data.getNumberOfRows() > 10) {
+                            data.removeRow(0);
+                        }
+                        drawChart();
                     }
-                    drawChart();
                     // Affichage des données dans la page HTML
                     document.getElementById('temperature-value').textContent = `Value: ${data.value}°C`;
                     document.getElementById('temperature-date').textContent = `Date: ${data.timestamp}`;

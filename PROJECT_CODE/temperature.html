@@ -26,13 +26,13 @@
     <script>
         // Load the Visualization API and the corechart package.
         google.charts.load('current', { 'packages': ['corechart'] });
-        google.charts.setOnLoadCallback(drawChart);
+        google.charts.setOnLoadCallback(initChart);
         let frequency = 10;
-        let data = new google.visualization.DataTable();
-        data.addColumn('datetime', 'Time');
-        data.addColumn('number', 'Temperature');
-        let container = document.getElementById('charts');
-        let chart = new google.visualization.LineChart(container);
+        let data = {}
+        let chart = {}
+        let container = {}
+
+
 
         // Fonction pour récupérer les données du capteur de température via une requête AJAX
         function getTemperatureData() {
@@ -61,6 +61,13 @@
                 curveType: 'function',
                 legend: { position: 'bottom' }
             });
+        }
+        function initChart() {
+            data = new google.visualization.DataTable();
+            data.addColumn('datetime', 'Time');
+            data.addColumn('number', 'Temperature');
+            container = document.getElementById('charts');
+            chart = new google.visualization.LineChart(container);
         }
         // Appel initial de la fonction pour obtenir les données dès que la page est chargée
         getTemperatureData();

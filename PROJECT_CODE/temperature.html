@@ -28,7 +28,7 @@
         google.charts.load('current', { 'packages': ['corechart'] });
         google.charts.setOnLoadCallback(initChart);
         let frequency = 10;
-        let data = {}
+        let dataTable = {}
         let chart = {}
         let container = {}
 
@@ -40,11 +40,11 @@
                 .then(response => response.json())
                 .then(data => {
                     //formatting data.timestamp in something that can be used by google charts
-                    if (data != {}) {//if data has been loaded (google charts also !)
+                    if (dataTable != {}) {//if data has been loaded (google charts also !)
                         timestamp = new Date(data.timestamp);
-                        data.addRow([timestamp, data.value]);
-                        if (data.getNumberOfRows() > 10) {
-                            data.removeRow(0);
+                        dataTable.addRow([timestamp, data.value]);
+                        if (dataTable.getNumberOfRows() > 10) {
+                            dataTable.removeRow(0);
                         }
                         drawChart();
                     }
@@ -65,9 +65,9 @@
             });
         }
         function initChart() {
-            data = new google.visualization.DataTable();
-            data.addColumn('datetime', 'Time');
-            data.addColumn('number', 'Temperature');
+            dataTable = new google.visualization.DataTable();
+            dataTable.addColumn('datetime', 'Time');
+            dataTable.addColumn('number', 'Temperature');
             container = document.getElementById('charts');
             chart = new google.visualization.LineChart(container);
         }

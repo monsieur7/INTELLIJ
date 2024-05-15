@@ -34,7 +34,9 @@
             fetch('https://raspberrypi-fr.local:8050/temperature')
                 .then(response => response.json())
                 .then(data => {
-                    data_chart.push([data.timestamp, data.value]);
+                    //formatting data.timestamp in something that can be used by google charts
+                    timestamp = new Date(data.timestamp);
+                    data_chart.push([timestamp, data.value]);
                     if (data_chart.length > 10) {
                         data_chart.shift();
                     }

@@ -55,8 +55,18 @@
             data.addColumn('datetime', 'Time');
             data.addColumn('number', 'Temperature');
             let chart = new google.visualization.LineChart(container);
+            chart.draw(data, {
+                title: 'Temperature Sensor',
+                curveType: 'function',
+                legend: { position: 'bottom' }
+            });
             setInterval(function () {
+                //updating data with data_chart 
                 data.addRows(data_chart);
+                //removing first row if there are more than 10 rows
+                if (data.getNumberOfRows() > 10) {
+                    data.removeRow(0);
+                }
                 chart.draw(data, {
                     title: 'Temperature Sensor',
                     curveType: 'function',

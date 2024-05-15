@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/style.css">
     <title>Temperature Sensor Details</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
+
 <body>
     <h1>Temperature Sensor Details</h1>
-    
+
     <!-- Conteneur pour les détails du capteur de température -->
     <div id="temperature-details">
         <h2>Temperature</h2>
@@ -16,15 +19,25 @@
         <p id="temperature-date">Loading...</p>
         <p id="temperature-frequency">Loading...</p>
     </div>
+    <div id="charts">
+    </div>
     <button id="back-button">Retour</button>
 
     <script>
-        let frequency=10;
+        // Load the Visualization API and the corechart package.
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+        let frequency = 10;
+        let data_chart = [];
         // Fonction pour récupérer les données du capteur de température via une requête AJAX
         function getTemperatureData() {
             fetch('https://raspberrypi-fr.local:8050/temperature')
                 .then(response => response.json())
                 .then(data => {
+                    data_chart.push([data.timestamp, data.value]);
+                    if (data_chart.length > 10) {
+                        data_chart.shift();
+                    }
                     // Affichage des données dans la page HTML
                     document.getElementById('temperature-value').textContent = `Value: ${data.value}°C`;
                     document.getElementById('temperature-date').textContent = `Date: ${data.timestamp}`;
@@ -34,18 +47,33 @@
                 .catch(error => console.error('Error fetching temperature data:', error));
 
         }
-
+        function drawChart() {
+            let container = document.getElementById('charts');
+            let data = new google.visualization.DataTable();
+            data.addColumn('datetime', 'Time');
+            data.addColumn('number', 'Temperature');
+            let chart = new google.visualization.LineChart(container);
+            setInterval(function () {
+                data.addRows(data_chart);
+                chart.draw(data, {
+                    title: 'Temperature Sensor',
+                    curveType: 'function',
+                    legend: { position: 'bottom' }
+                });
+            }, 1000 / frequency);
+        }
         // Appel initial de la fonction pour obtenir les données dès que la page est chargée
         getTemperatureData();
 
         // Récupération des données du capteur de température toutes les secondes
-        setInterval(getTemperatureData, 1000/frequency);
+        setInterval(getTemperatureData, 1000 / frequency);
 
         // Ajout d'un écouteur d'événements pour le bouton de retour
-        document.getElementById('back-button').addEventListener('click', function() {
+        document.getElementById('back-button').addEventListener('click', function () {
             // Redirection vers la page précédente
             history.back();
         });
     </script>
 </body>
+
 </html>

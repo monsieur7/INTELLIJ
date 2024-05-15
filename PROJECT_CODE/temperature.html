@@ -41,7 +41,7 @@
                 .then(data => {
                     //formatting data.timestamp in something that can be used by google charts
                     if (dataTable != {}) {//if data has been loaded (google charts also !)
-                        timestamp = new Date(data.timestamp);
+                        timestamp = new Date(data.timestamp.split(" ")[1]);
                         dataTable.addRow([timestamp, data.value]);
                         if (dataTable.getNumberOfRows() > 50) {
                             dataTable.removeRow(0);

@@ -43,7 +43,7 @@
                     if (dataTable != {}) {//if data has been loaded (google charts also !)
                         timestamp = new Date(data.timestamp);
                         dataTable.addRow([timestamp, data.value]);
-                        if (dataTable.getNumberOfRows() > 10) {
+                        if (dataTable.getNumberOfRows() > 50) {
                             dataTable.removeRow(0);
                         }
                         drawChart();

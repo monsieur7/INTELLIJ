@@ -41,7 +41,7 @@
                 .then(data => {
                     //formatting data.timestamp in something that can be used by google charts
                     if (dataTable != {}) {//if data has been loaded (google charts also !)
-                        timestamp = new Date(data.timestamp.split(" ")[1]);
+                        timestamp = new Date(data.timestamp);
                         dataTable.addRow([timestamp, data.value]);
                         if (dataTable.getNumberOfRows() > 50) {
                             dataTable.removeRow(0);
@@ -61,7 +61,11 @@
             chart.draw(dataTable, {
                 title: 'Temperature Sensor',
                 curveType: 'function',
-                legend: { position: 'bottom' }
+                legend: { position: 'bottom' },
+                haXis: {
+                    title: 'Time',
+                    format: 'HH:mm:ss'
+                },
             });
         }
         function initChart() {

@@ -28,7 +28,12 @@
         google.charts.load('current', { 'packages': ['corechart'] });
         google.charts.setOnLoadCallback(drawChart);
         let frequency = 10;
-        let data_chart = [];
+        let data = new google.visualization.DataTable();
+        data.addColumn('datetime', 'Time');
+        data.addColumn('number', 'Temperature');
+        let container = document.getElementById('charts');
+        let chart = new google.visualization.LineChart(container);
+
         // Fonction pour récupérer les données du capteur de température via une requête AJAX
         function getTemperatureData() {
             fetch('https://raspberrypi-fr.local:8050/temperature')
@@ -36,10 +41,11 @@
                 .then(data => {
                     //formatting data.timestamp in something that can be used by google charts
                     timestamp = new Date(data.timestamp);
-                    data_chart.push([timestamp, data.value]);
-                    if (data_chart.length > 10) {
-                        data_chart.shift();
+                    data.addRow([timestamp, data.value]);
+                    if (data.getNumberOfRows() > 10) {
+                        data.removeRow(0);
                     }
+                    drawChart();
                     // Affichage des données dans la page HTML
                     document.getElementById('temperature-value').textContent = `Value: ${data.value}°C`;
                     document.getElementById('temperature-date').textContent = `Date: ${data.timestamp}`;
@@ -50,29 +56,11 @@
 
         }
         function drawChart() {
-            let container = document.getElementById('charts');
-            let data = new google.visualization.DataTable();
-            data.addColumn('datetime', 'Time');
-            data.addColumn('number', 'Temperature');
-            let chart = new google.visualization.LineChart(container);
             chart.draw(data, {
                 title: 'Temperature Sensor',
                 curveType: 'function',
                 legend: { position: 'bottom' }
             });
-            setInterval(function () {
-                //updating data with data_chart 
-                data.addRows(data_chart);
-                //removing first row if there are more than 10 rows
-                if (data.getNumberOfRows() > 10) {
-                    data.removeRow(0);
-                }
-                chart.draw(data, {
-                    title: 'Temperature Sensor',
-                    curveType: 'function',
-                    legend: { position: 'bottom' }
-                });
-            }, 1000 / frequency);
         }
         // Appel initial de la fonction pour obtenir les données dès que la page est chargée
         getTemperatureData();

@@ -22,7 +22,7 @@ class lcd_setup():
         self.width, self.height = self.display.width, self.display.height
         self.image = Image.new("RGB", (self.width, self.height), (0, 0, 0))
         self.draw = ImageDraw.Draw(self.image)
-        self.font_url = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+        self.font_url = "/usr/share/fonts/truetype/liberation/LiberationMono-Bold.ttf"
 
 
 

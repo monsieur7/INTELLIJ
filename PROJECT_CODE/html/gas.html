@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -59,7 +60,7 @@
 <body>
     <div class="container">
         <h1>Gas Details</h1>
-        
+
         <!-- Conteneur pour les détails du capteur de lumière -->
         <div id="gas-details">
             <h2>Gas</h2>
@@ -90,7 +91,7 @@
                 .then(data => {
                     let timestamp = new Date(data.timestamp);
 
-                    dataTable.addRow([timestamp, data.oxidising]);
+                    dataTable.addRow([timestamp, Number(data.oxidising), Number(data.reducing), Number(data.nh3)]);
 
                     if (dataTable.getNumberOfRows() > 50) {
                         dataTable.removeRow(0);
@@ -124,7 +125,7 @@
 
         function initChart() {
             dataTable = new google.visualization.DataTable();
-            dataTable.addColumn('datetime', 'Time');
+            dataTable.addColumn('datetime', 'Timestamp');
             dataTable.addColumn('number', 'Oxidising');
             dataTable.addColumn('number', 'Reducing');
             dataTable.addColumn('number', 'NH3');
@@ -137,9 +138,10 @@
         }
 
         // Ajout d'un gestionnaire d'événements pour le bouton Retour
-        document.getElementById('back-button').addEventListener('click', function() {
+        document.getElementById('back-button').addEventListener('click', function () {
             history.back();
         });
     </script>
 </body>
+
 </html>

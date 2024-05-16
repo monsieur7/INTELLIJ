@@ -5,17 +5,17 @@ const ip = require('ip');
 
 const port = 8080;
 
- // Map URL paths to corresponding file paths
- const routes = {
-    '/': 'index.html',
-    '/temperature': 'temperature.html',
-    '/humidity': 'humidity.html',
-    '/pressure': 'pressure.html',
-    '/light': 'light.html',
-    '/display': 'display.html',
-    '/gas': 'gas.html',
-    '/mic': 'mic.html',
-    '/mic/record': 'record.html',
+// Map URL paths to corresponding file paths
+const routes = {
+    '/': 'html/index.html',
+    '/temperature': 'html/temperature.html',
+    '/humidity': 'html/humidity.html',
+    '/pressure': 'html/pressure.html',
+    '/light': 'html/light.html',
+    '/display': 'html/display.html',
+    '/gas': 'html/gas.html',
+    '/mic': 'html/mic.html',
+    '/mic/record': 'html/record.html',
     '/style/style.css': 'style/style.css',
     '/script/script.js': 'script/script.js',
     '/favicon.ico': 'favicon.ico'
@@ -39,17 +39,17 @@ function serve(req, res) {
         fs.readFile(filePath, 'utf8', (err, data) => {
             if (err) {
                 console.log(`Error reading file ${filePath}: ${err}`);
-                res.writeHead(404, {'Content-Type': 'text/html'});
+                res.writeHead(404, { 'Content-Type': 'text/html' });
                 res.write("<h1>404 Not Found</h1>");
                 res.end();
             } else {
-                res.writeHead(200, {'Content-Type': contentType});
+                res.writeHead(200, { 'Content-Type': contentType });
                 res.write(data);
                 res.end();
             }
         });
     } else {
-        res.writeHead(404, {'Content-Type': 'text/html'});
+        res.writeHead(404, { 'Content-Type': 'text/html' });
         res.write("<h1>404 Not Found</h1>");
         res.end();
     }
@@ -70,6 +70,6 @@ https.createServer({
     passphrase: '3153'
 }, (req, res) => {
     serve(req, res);
-}).listen(port+1);
+}).listen(port + 1);
 console.log(`Server running at http://${ip.address()}:${port}/`);
-console.log(`Server running at https://${ip.address()}:${port+1}/`);
+console.log(`Server running at https://${ip.address()}:${port + 1}/`);

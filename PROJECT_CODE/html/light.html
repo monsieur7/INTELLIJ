@@ -59,9 +59,9 @@
                 .catch(error => console.error('Error fetching temperature data:', error));
         }
         getLightData();
-        setInterval(getLightData, 1000 / frequency);
+        setInterval(getLightData, 1000);
         getProxiData();
-        setInterval(getProxiData, 1000 / frequency);
+        setInterval(getProxiData, 1000);
 
         // Ajout d'un gestionnaire d'événements pour le bouton Retour
         document.getElementById('back-button').addEventListener('click', function () {

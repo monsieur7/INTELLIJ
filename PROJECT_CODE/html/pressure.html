@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/style.css">
-    <title>Humidity Sensor Details</title>
+    <title>Pressure Sensor Details</title>
     <style>
         /* Add the CSS here for simplicity */
         body {
@@ -40,7 +40,7 @@
             text-align: center;
         }
 
-        #humidity-details {
+        #pressure-details {
             grid-area: details;
             display: flex;
             flex-direction: column;
@@ -58,36 +58,43 @@
 
 <body>
     <div class="container">
-        <h1>Humidity Sensor Details</h1>
-
-        <div id="humidity-details">
-            <h2>Humidity</h2>
-            <p id="humidity-value">Loading...</p>
-            <p id="humidity-date">Loading...</p>
-            <p id="humidity-frequency">Loading...</p>
+        <h1>Pressure Sensor Details</h1>
+        <!-- Conteneur pour les détails du capteur de température -->
+        <div id="pressure-details">
+            <h2>Pressure</h2>
+            <p id="pressure-value">Loading...</p>
+            <p id="pressure-date">Loading...</p>
+            <p id="pressure-frequency">Loading...</p>
         </div>
         <button id="back-button">Return</button>
     </div>
+
     <script>
         let frequency = 10;
-        function getHumidityData() {
-            fetch('https://raspberrypi-fr.local:8050/humidity')
+        // Fonction pour récupérer les données du capteur de température via une requête AJAX
+        function getPressureData() {
+            fetch('https://raspberrypi-fr.local:8050/pressure')
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById('humidity-value').textContent = `Value: ${data.value}%`;
-                    document.getElementById('humidity-date').textContent = `Date: ${data.timestamp}`;
-                    document.getElementById('humidity-frequency').textContent = `Frequency: ${data.frequency} Hz`;
+                    // Affichage des données dans la page HTML
+                    document.getElementById('pressure-value').textContent = `Value: ${data.value} mbar`;
+                    document.getElementById('pressure-date').textContent = `Date: ${data.timestamp}`;
+                    document.getElementById('pressure-frequency').textContent = `Frequency: ${data.frequency} Hz`;
                     frequency = parseInt(data.frequency)
                 })
                 .catch(error => console.error('Error fetching humidity data:', error));
 
         }
 
-        getHumidityData();
+        // Appel initial de la fonction pour obtenir les données dès que la page est chargée
+        getPressureData();
 
-        setInterval(getHumidityData, 1000 / frequency);
+        // Récupération des données du capteur de température toutes les secondes
+        setInterval(getPressureData, 1000);
 
+        // Ajout d'un écouteur d'événements pour le bouton de retour
         document.getElementById('back-button').addEventListener('click', function () {
+            // Redirection vers la page précédente
             history.back();
         });
     </script>

@@ -91,7 +91,7 @@
                 .then(data => {
                     let timestamp = new Date(data.timestamp);
 
-                    dataTable.addRow([timestamp, Number(data.oxidising), Number(data.reducing), Number(data.nh3)]);
+                    dataTable.addRow([timestamp, Number(data.oxidising) / 1000, Number(data.reducing) / 1000, Number(data.nh3) / 1000]);
 
                     if (dataTable.getNumberOfRows() > 50) {
                         dataTable.removeRow(0);
@@ -118,7 +118,7 @@
                 },
                 vAxis: {
                     title: 'Resistance',
-                    format: '#\'Ohms\''
+                    format: '#\'KΩ\''
                 }
             });
         }

@@ -6,7 +6,56 @@
     <link rel="stylesheet" href="style/style.css">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <title>Gas Sensor Details</title>
+    <style>
+        /* Add the CSS here for simplicity */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            display: grid;
+            grid-template-areas:
+                "header"
+                "details"
+                "charts"
+                "button";
+            gap: 20px;
+            width: 90%;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            grid-area: header;
+            text-align: center;
+        }
+
+        #gas-details {
+            grid-area: details;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-shadow: 0 0 5px 10px rgba(167, 167, 167, 0.3);
+        }
+
+        #chart_div {
+            grid-area: charts;
+            width: 100%;
+            height: 400px;
+        }
+    </style>
 </head>
+
 <body>
     <div class="container">
         <h1>Gas Details</h1>
@@ -28,61 +77,64 @@
     </div>
 
     <script>
-        // Charger la bibliothèque de visualisation et le package corechart.
         google.charts.load('current', { packages: ['corechart'] });
+        google.charts.setOnLoadCallback(initChart);
 
-        // Callback pour charger le graphique une fois que la bibliothèque est chargée.
-        google.charts.setOnLoadCallback(drawChart);
-
-        let dataArray = [['Time', 'Oxidising', 'Reducing', 'NH3']];
+        let dataTable;
+        let chart;
 
         function getGas() {
-            fetch('https://raspberrypi-fr.local:8050/gas', {headers: {'Accept': 'application/json'}})
+            fetch('https://raspberrypi-fr.local:8050/gas', { headers: { 'Accept': 'application/json' } })
                 .then(response => response.json())
                 .then(data => {
-                    // Affichage des données dans la page
+                    let timestamp = new Date(data.timestamp);
+
+                    dataTable.addRow([timestamp, data.oxidising, data.reducing, data.nh3]);
+
+                    if (dataTable.getNumberOfRows() > 50) {
+                        dataTable.removeRow(0);
+                    }
+
+                    drawChart();
+
                     document.getElementById('oxidising').textContent = `Oxidising: ${data.oxidising} Ohms`;
                     document.getElementById('reducing').textContent = `Reducing: ${data.reducing} Ohms`;
                     document.getElementById('nh3').textContent = `NH3: ${data.nh3} Ohms`;
-                    document.getElementById('gas-date').textContent = `Date: ${new Date(data.timestamp).toLocaleString()}`;
-
-                    // Ajouter les nouvelles données au tableau
-                    dataArray.push([new Date(data.timestamp), data.oxidising, data.reducing, data.nh3]);
-
-                    // Redessiner le graphique avec les nouvelles données
-                    drawChart();
+                    document.getElementById('gas-date').textContent = `Date: ${timestamp.toLocaleString()}`;
                 })
                 .catch(error => console.error('Error fetching gas data:', error));
         }
 
         function drawChart() {
-            let data = google.visualization.arrayToDataTable(dataArray);
-
-            let options = {
+            chart.draw(dataTable, {
                 title: 'Gas Sensor Data',
                 curveType: 'function',
                 legend: { position: 'bottom' },
                 hAxis: {
                     title: 'Time',
-                    format: 'HH:mm:ss',
-                    gridlines: { count: -1 }
+                    format: 'HH:mm:ss'
                 },
                 vAxis: {
                     title: 'Resistance (Ohms)'
                 }
-            };
-
-            let chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-
-            chart.draw(data, options);
+            });
         }
 
-        getGas();
-        setInterval(getGas, 1000);
+        function initChart() {
+            dataTable = new google.visualization.DataTable();
+            dataTable.addColumn('datetime', 'Time');
+            dataTable.addColumn('number', 'Oxidising');
+            dataTable.addColumn('number', 'Reducing');
+            dataTable.addColumn('number', 'NH3');
+
+            chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+
+            getGas();
+            setInterval(getGas, 1000);
+        }
 
         // Ajout d'un gestionnaire d'événements pour le bouton Retour
         document.getElementById('back-button').addEventListener('click', function() {
-            // Redirection vers la page précédente
             history.back();
         });
     </script>

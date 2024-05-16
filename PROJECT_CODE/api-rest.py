@@ -18,6 +18,7 @@ from devicesPython import mic
 from datetime import datetime
 import multiprocessing
 import ssl
+import requests
 app = Flask(__name__)
 CORS(app)  # Activate CORS on the app
 app.config['CORS_HEADERS'] = 'Content-Type' # Set CORS headers
@@ -61,7 +62,13 @@ def is_python_script_running(script_name):
 def start_python_script(script_path):
     if not is_python_script_running(script_path):
         subprocess.Popen(["python3", script_path])
-
+def get_qnh(airport_code):
+    url = f"https://www.aviationweather.gov/metar/data?ids={airport_code}&format=json"
+    response = requests.get(url)
+    if response.status_code == 200:
+        data = response.json()
+        if data:
+            return data[0]["altimeter"]
 @app.route('/temperature', methods=['GET'])
 def get_temperature():
     temperature = round(bme280.get_temperature())
@@ -74,7 +81,15 @@ def get_pressure():
     pressure = round(bme280.get_pressure())
     timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
     return jsonify({'value': pressure, 'timestamp': timestamp, 'frequency': freq_bme280, 'unit': 'hPa'})
+@app.route('/altitude', methods=['GET'])
+def get_altitude():
+    #get qnh :
 
+    qnh = get_qnh("LFPR")
+    altitude = round(bme280.get_altitude(qnh))
+    timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
+
+    return jsonify({'value': altitude, 'timestamp': timestamp, 'frequency': freq_bme280, 'unit': 'm'})
 @app.route('/humidity', methods=['GET'])
 def get_humidity():
     humidity = round(bme280.get_humidity())

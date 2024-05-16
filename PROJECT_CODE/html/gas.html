@@ -99,9 +99,9 @@
 
                     drawChart();
 
-                    document.getElementById('oxidising').textContent = `Oxidising: ${data.oxidising} Ohms`;
-                    document.getElementById('reducing').textContent = `Reducing: ${data.reducing} Ohms`;
-                    document.getElementById('nh3').textContent = `NH3: ${data.nh3} Ohms`;
+                    document.getElementById('oxidising').textContent = `Oxidising: ${data.oxidising / 1000} kΩ`;
+                    document.getElementById('reducing').textContent = `Reducing: ${data.reducing / 1000} kΩ`;
+                    document.getElementById('nh3').textContent = `NH3: ${data.nh3 / 1000} kΩ`;
                     document.getElementById('gas-date').textContent = `Date: ${timestamp.toLocaleString()}`;
                 })
                 .catch(error => console.error('Error fetching gas data:', error));

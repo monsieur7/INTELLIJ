@@ -90,8 +90,9 @@
                 .then(data => {
                     let timestamp = new Date(data.timestamp);
 
-                    dataTable.addRow([timestamp, data.oxidising, data.reducing, data.nh3]);
-
+                    dataTable.addRow([timestamp, data.oxidising]);
+                    dataTable.addRow([timestamp, data.reducing]);
+                    dataTable.addRow([timestamp, data.nh3]);
                     if (dataTable.getNumberOfRows() > 50) {
                         dataTable.removeRow(0);
                     }

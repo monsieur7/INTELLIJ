@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/style.css">
     <title>Gas Sensor Details</title>
 </head>
+
 <body>
     <div class="container">
         <h1>Gas Details</h1>
-        
+
         <!-- Conteneur pour les détails du capteur de lumière -->
         <div id="gas-details">
             <h2>Gas</h2>
@@ -20,13 +22,13 @@
         </div>
 
         <!-- Bouton Retour -->
-        <button id="back-button">Retour</button>
+        <button id="back-button">Return</button>
     </div>
 
     <script>
         // Récupération des données du capteur de lumière
         function getGas() {
-            fetch('https://raspberrypi-fr.local:8050/gas', {headers: {'Accept': 'application/json'}})
+            fetch('https://raspberrypi-fr.local:8050/gas', { headers: { 'Accept': 'application/json' } })
                 .then(response => response.json())
                 .then(data => {
                     // Affichage des données dans la page
@@ -36,17 +38,18 @@
                     document.getElementById('gas-date').textContent = `Date: ${data.timestamp}`;
                 })
                 .catch(error => console.error('Error fetching temperature data:', error));
-                
+
         }
 
-            getGas();
-            setInterval(getGas,100);
+        getGas();
+        setInterval(getGas, 100);
 
         // Ajout d'un gestionnaire d'événements pour le bouton Retour
-        document.getElementById('back-button').addEventListener('click', function() {
+        document.getElementById('back-button').addEventListener('click', function () {
             // Redirection vers la page précédente
             history.back();
         });
     </script>
 </body>
+
 </html>

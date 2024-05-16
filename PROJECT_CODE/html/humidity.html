@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/style.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
     <title>Humidity Sensor Details</title>
     <style>
         /* Add the CSS here for simplicity */
@@ -66,14 +68,31 @@
             <p id="humidity-date">Loading...</p>
             <p id="humidity-frequency">Loading...</p>
         </div>
+        <div id="charts">
+        </div>
         <button id="back-button">Return</button>
     </div>
     <script>
+        // Load the Visualization API and the corechart package.
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(initChart);
         let frequency = 10;
+        let dataTable = {};
+        let chart = {};
+        let container = {};
+
         function getHumidityData() {
             fetch('https://raspberrypi-fr.local:8050/humidity')
                 .then(response => response.json())
                 .then(data => {
+                    if (Object.keys(dataTable).length !== 0) { // If data has been loaded (Google Charts also)
+                        let timestamp = new Date(data.timestamp);
+                        dataTable.addRow([timestamp, data.value]);
+                        if (dataTable.getNumberOfRows() > 50) {
+                            dataTable.removeRow(0);
+                        }
+                        drawChart();
+                    }
                     document.getElementById('humidity-value').textContent = `Value: ${data.value}%`;
                     document.getElementById('humidity-date').textContent = `Date: ${data.timestamp}`;
                     document.getElementById('humidity-frequency').textContent = `Frequency: ${data.frequency} Hz`;
@@ -81,6 +100,29 @@
                 })
                 .catch(error => console.error('Error fetching humidity data:', error));
 
+        }
+        function drawChart() {
+            chart.draw(dataTable, {
+                title: 'Humidity Sensor',
+                curveType: 'function',
+                legend: { position: 'bottom' },
+                hAxis: {
+                    title: 'Time',
+                    format: 'HH:mm:ss'
+                },
+                yAxis: {
+                    title: 'Humidity (%)'
+                },
+                width: '100%',
+                height: '100%'
+            });
+        }
+        function initChart() {
+            dataTable = new google.visualization.DataTable();
+            dataTable.addColumn('datetime', 'Time');
+            dataTable.addColumn('number', 'Humidity');
+            container = document.getElementById('charts');
+            chart = new google.visualization.LineChart(container);
         }
 
         getHumidityData();

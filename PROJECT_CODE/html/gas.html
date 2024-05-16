@@ -80,8 +80,9 @@
         google.charts.load('current', { packages: ['corechart'] });
         google.charts.setOnLoadCallback(initChart);
 
-        let dataTable;
-        let chart;
+        let dataTable = {};
+        let chart = {};
+        let container = {};
 
         function getGas() {
             fetch('https://raspberrypi-fr.local:8050/gas', { headers: { 'Accept': 'application/json' } })
@@ -115,7 +116,8 @@
                     format: 'HH:mm:ss'
                 },
                 vAxis: {
-                    title: 'Resistance (Ohms)'
+                    title: 'Resistance',
+                    format: '#\'Ohms\''
                 }
             });
         }
@@ -127,6 +129,7 @@
             dataTable.addColumn('number', 'Reducing');
             dataTable.addColumn('number', 'NH3');
 
+            container = document.getElementById('charts');
             chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 
             getGas();

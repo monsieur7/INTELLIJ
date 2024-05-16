@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/style.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
     <title>Pressure Sensor Details</title>
     <style>
         /* Add the CSS here for simplicity */
@@ -66,16 +68,30 @@
             <p id="pressure-date">Loading...</p>
             <p id="pressure-frequency">Loading...</p>
         </div>
+        <div id="charts"></div>
         <button id="back-button">Return</button>
     </div>
 
     <script>
+        // Load the Visualization API and the corechart package.
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(initChart);
         let frequency = 10;
-        // Fonction pour récupérer les données du capteur de température via une requête AJAX
+        let dataTable = {};
+        let chart = {};
+        let container = {};        // Fonction pour récupérer les données du capteur de température via une requête AJAX
         function getPressureData() {
             fetch('https://raspberrypi-fr.local:8050/pressure')
                 .then(response => response.json())
                 .then(data => {
+                    if (Object.keys(dataTable).length !== 0) { // If data has been loaded (Google Charts also)
+                        let timestamp = new Date(data.timestamp);
+                        dataTable.addRow([timestamp, data.value]);
+                        if (dataTable.getNumberOfRows() > 50) {
+                            dataTable.removeRow(0);
+                        }
+                        drawChart();
+                    }
                     // Affichage des données dans la page HTML
                     document.getElementById('pressure-value').textContent = `Value: ${data.value} mbar`;
                     document.getElementById('pressure-date').textContent = `Date: ${data.timestamp}`;
@@ -85,6 +101,33 @@
                 .catch(error => console.error('Error fetching humidity data:', error));
 
         }
+        function drawChart() {
+            chart.draw(dataTable, {
+                title: 'Pressure Sensor',
+                curveType: 'function',
+                legend: { position: 'bottom' },
+                hAxis: {
+                    title: 'Time',
+                    format: 'HH:mm:ss'
+                },
+                vAxis: {
+                    title: 'Pressure (hPa)',
+                    format: '#hPa'
+
+                },
+                width: '100%',
+                height: '100%'
+            });
+        }
+
+        function initChart() {
+            dataTable = new google.visualization.DataTable();
+            dataTable.addColumn('datetime', 'Time');
+            dataTable.addColumn('number', 'Pressure');
+            container = document.getElementById('charts');
+            chart = new google.visualization.LineChart(container);
+        }
+
 
         // Appel initial de la fonction pour obtenir les données dès que la page est chargée
         getPressureData();

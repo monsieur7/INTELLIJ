@@ -63,7 +63,8 @@
           "oxidising": "String (oxidising gas value)",
           "reducing": "String (reducing gas value)",
           "nh3": "String (NH3 gas value)",
-          "timestamp": "String (timestamp of the gas readings)"
+          "timestamp": "String (timestamp of the gas readings)",
+          "unit":"String (Ω)"
         }
       },
 

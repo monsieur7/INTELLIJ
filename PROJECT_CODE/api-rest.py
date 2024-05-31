@@ -22,7 +22,7 @@ app = Flask(__name__)
 CORS(app)  # Activate CORS on the app
 app.config['CORS_HEADERS'] = 'Content-Type' # Set CORS headers
 #see https://flask-cors.readthedocs.io/en/v1.7.4/
-#https :
+#https : (comment this part in order to desactivate https for coap / mqtt applicatinos !)
 sslContext = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
 sslContext.load_cert_chain('raspberrypi-fr.local.crt', 'raspberrypi-fr.local.key', "3153")
 # Initialize sensors

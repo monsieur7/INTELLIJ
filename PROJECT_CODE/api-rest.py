@@ -101,7 +101,7 @@ def get_gas():
     gas_nh3 = reading.nh3
     app.logger.debug(f"Gas data: {gas_oxidising}, {gas_reducing}, {gas_nh3}")
     timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
-    return jsonify({'oxidising': f"{gas_oxidising:05.02f}", 'reducing': f"{gas_reducing:05.02f}", 'nh3': f"{gas_nh3:05.02f}", 'timestamp': timestamp})
+    return jsonify({'oxidising': f"{gas_oxidising:05.02f}", 'reducing': f"{gas_reducing:05.02f}", 'nh3': f"{gas_nh3:05.02f}", 'timestamp': timestamp, "unit":"Ω"})
 
 @app.route('/display', methods=['POST'])
 def display_data():

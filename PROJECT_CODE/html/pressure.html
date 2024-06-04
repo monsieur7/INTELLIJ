@@ -93,7 +93,7 @@
                         drawChart();
                     }
                     // Affichage des données dans la page HTML
-                    document.getElementById('pressure-value').textContent = `Value: ${data.value} mbar`;
+                    document.getElementById('pressure-value').textContent = `Value: ${data.value} ${data.unit}`;
                     document.getElementById('pressure-date').textContent = `Date: ${data.timestamp}`;
                     document.getElementById('pressure-frequency').textContent = `Frequency: ${data.frequency} Hz`;
                     frequency = parseInt(data.frequency)

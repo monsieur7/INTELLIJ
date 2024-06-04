@@ -146,6 +146,11 @@
         socket.on('connect', function () {
             console.log('Connected to the server - websocket');
         });
+        socket.on("temperature_update", (data) => {
+            console.log(data)
+        })
+        socket.emit("temperature", "")
+
     </script>
 </body>
 

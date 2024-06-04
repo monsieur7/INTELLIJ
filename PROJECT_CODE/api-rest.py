@@ -88,7 +88,7 @@ def get_altitude():
     global qnh, qnh_timestamp
     #get qnh : (update every 30 minutes)
     if(qnh == None or (time.time() - qnh_timestamp) > 1800):
-        qnh = get_qnh("LFPR")
+        qnh = get_qnh("LPFR")
         qnh_timestamp = time.time()
     altitude = round(bme280.get_altitude(qnh))
     timestamp = time.strftime("%Y-%m-%d %H:%M:%S")

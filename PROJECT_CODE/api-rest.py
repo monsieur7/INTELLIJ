@@ -21,7 +21,7 @@ import multiprocessing
 import ssl
 import requests
 app = Flask(__name__)
-socketio = SocketIO(app,debug=True,cors_allowed_origins='*',async_mode='eventlet') #socketio
+socketio = SocketIO(app,debug=True,cors_allowed_origins='*') #socketio
 CORS(app)  # Activate CORS on the app
 app.config['CORS_HEADERS'] = 'Content-Type' # Set CORS headers
 #see https://flask-cors.readthedocs.io/en/v1.7.4/

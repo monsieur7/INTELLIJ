@@ -65,7 +65,7 @@ def start_python_script(script_path):
     if not is_python_script_running(script_path):
         subprocess.Popen(["python3", script_path])
 def get_qnh(airport_code):
-    url = f"https://www.aviationweather.gov/metar/data?ids={airport_code}&format=json"
+    url = f"https://www.aviationweather.gov/api/data/metar?ids={airport_code}&format=json"
     response = requests.get(url)
     if response.status_code == 200:
         data = response.json()

@@ -44,6 +44,8 @@ bme280.setup(
     pressure_oversampling=pressure_oversampling,
     humidity_oversampling=humidity_oversampling
 )
+qnh = None
+qnh_timestamp = 0
 #mic :
 mic = mic.Mic()
 # Redis Queue setup
@@ -83,9 +85,10 @@ def get_pressure():
     return jsonify({'value': pressure, 'timestamp': timestamp, 'frequency': freq_bme280, 'unit': 'hPa'})
 @app.route('/altitude', methods=['GET'])
 def get_altitude():
-    #get qnh :
-
-    qnh = get_qnh("LFPR")
+    #get qnh : (update every 30 minutes)
+    if(qnh == None or (time.time() - qnh_timestamp) > 1800):
+        qnh = get_qnh("LFPR")
+        qnh_timestamp = time.time()
     altitude = round(bme280.get_altitude(qnh))
     timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
 

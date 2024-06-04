@@ -70,7 +70,7 @@ def get_qnh(airport_code):
     if response.status_code == 200:
         data = response.json()
         if data:
-            return data[0]["altimeter"]
+            return data[0]["altim"]
 @app.route('/temperature', methods=['GET'])
 def get_temperature():
     temperature = round(bme280.get_temperature())

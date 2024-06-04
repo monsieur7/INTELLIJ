@@ -6,7 +6,7 @@ import subprocess
 import psutil
 from flask import Flask, jsonify, request, Response
 from flask_cors import CORS
-from flask_sock import Sock
+from flask_socketio import SocketIO, emit
 from smbus import SMBus
 from bme280 import BME280
 from ltr559 import LTR559
@@ -78,14 +78,13 @@ def get_temperature():
     timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
     app.logger.info(f"Measurement info - normal: {t_measurement_normal}, standby: {t_standby}, frequency: {freq_bme280} Hz")
     return jsonify({'value': temperature, 'timestamp': timestamp, 'frequency': freq_bme280, 'unit': '°C'})
-@sock.route("/temperature") #websocket alternative
-def get_temperature_ws():
-   while True:
-       temperature = round(bme280.get_temperature())
-       timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
-       app.logger.info(f"Measurement info - normal: {t_measurement_normal}, standby: {t_standby}, frequency: {freq_bme280} Hz")
-       yield jsonify({'value': temperature, 'timestamp': timestamp, 'frequency': freq_bme280, 'unit': '°C'})
-       
+@SocketIO.on('temperature')
+def get_temperature():
+    sid = request.sid
+    temperature = round(bme280.get_temperature())
+    timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
+    app.logger.info(f"Measurement info - normal: {t_measurement_normal}, standby: {t_standby}, frequency: {freq_bme280} Hz")
+    emit('temperature', {'value': temperature, 'timestamp': timestamp, 'frequency': freq_bme280, 'unit': '°C'}, room=sid)
 @app.route('/pressure', methods=['GET'])
 def get_pressure():
     pressure = round(bme280.get_pressure())

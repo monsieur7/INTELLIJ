@@ -85,7 +85,7 @@ def get_temperature_ws():
        timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
        app.logger.info(f"Measurement info - normal: {t_measurement_normal}, standby: {t_standby}, frequency: {freq_bme280} Hz")
        yield jsonify({'value': temperature, 'timestamp': timestamp, 'frequency': freq_bme280, 'unit': '°C'})
-       time.sleep(1/freq_bme280) #wait for the next measurement
+       
 @app.route('/pressure', methods=['GET'])
 def get_pressure():
     pressure = round(bme280.get_pressure())

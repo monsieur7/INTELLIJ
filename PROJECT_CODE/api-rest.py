@@ -78,7 +78,7 @@ def get_temperature():
     timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
     app.logger.info(f"Measurement info - normal: {t_measurement_normal}, standby: {t_standby}, frequency: {freq_bme280} Hz")
     return jsonify({'value': temperature, 'timestamp': timestamp, 'frequency': freq_bme280, 'unit': '°C'})
-@SocketIO.on('temperature')
+@socketio.on('temperature')
 def get_temperature():
     sid = request.sid
     temperature = round(bme280.get_temperature())

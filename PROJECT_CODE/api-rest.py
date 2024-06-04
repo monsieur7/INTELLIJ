@@ -85,6 +85,7 @@ def get_pressure():
     return jsonify({'value': pressure, 'timestamp': timestamp, 'frequency': freq_bme280, 'unit': 'hPa'})
 @app.route('/altitude', methods=['GET'])
 def get_altitude():
+    global qnh, qnh_timestamp
     #get qnh : (update every 30 minutes)
     if(qnh == None or (time.time() - qnh_timestamp) > 1800):
         qnh = get_qnh("LFPR")

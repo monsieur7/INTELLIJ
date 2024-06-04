@@ -80,13 +80,13 @@ def get_temperature():
     return jsonify({'value': temperature, 'timestamp': timestamp, 'frequency': freq_bme280, 'unit': '°C'})
 #SOCKET IO - TEMPERATURE - TEST
 @socketio.on('temperature')
-def get_temperature():
+def get_temperature(ws):
     sid = request.sid
     temperature = round(bme280.get_temperature())
     timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
     app.logger.info(f"Measurement info - normal: {t_measurement_normal}, standby: {t_standby}, frequency: {freq_bme280} Hz")
-    emit('temperature_update', {'value': temperature, 'timestamp': timestamp, 'frequency': freq_bme280, 'unit': '°C'}, room=sid)
-    
+    ws.emit('temperature_update', {'value': temperature, 'timestamp': timestamp, 'frequency': freq_bme280, 'unit': '°C'}, room=sid)
+
 @app.route('/pressure', methods=['GET'])
 def get_pressure():
     pressure = round(bme280.get_pressure())

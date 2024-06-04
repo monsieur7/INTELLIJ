@@ -100,9 +100,9 @@
 
                     drawChart();
 
-                    document.getElementById('oxidising').textContent = `Oxidising: ${Number(data.oxidising / 1000).toFixed(2)} kΩ`;
-                    document.getElementById('reducing').textContent = `Reducing: ${Number(data.reducing / 1000).toFixed(2)} kΩ`;
-                    document.getElementById('nh3').textContent = `NH3: ${Number(data.nh3 / 1000).toFixed(2)} kΩ`;
+                    document.getElementById('oxidising').textContent = `Oxidising: ${Number(data.oxidising / 1000).toFixed(2)} ${data.unit}`;
+                    document.getElementById('reducing').textContent = `Reducing: ${Number(data.reducing / 1000).toFixed(2)} ${data.unit}`;
+                    document.getElementById('nh3').textContent = `NH3: ${Number(data.nh3 / 1000).toFixed(2)} ${data.unit}`;
                     document.getElementById('gas-date').textContent = `Date: ${timestamp.toLocaleString()}`;
                 })
                 .catch(error => console.error('Error fetching gas data:', error));

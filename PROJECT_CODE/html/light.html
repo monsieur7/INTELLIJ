@@ -38,7 +38,7 @@
                 .then(response => response.json())
                 .then(data => {
                     // Affichage des données dans la page
-                    document.getElementById('light-value').textContent = `Value: ${data.value} Lux`;
+                    document.getElementById('light-value').textContent = `Value: ${data.value} ${data.unit}`;
                     document.getElementById('light-date').textContent = `Date: ${data.timestamp}`;
                     document.getElementById('light-frequency').textContent = `Frequency: ${data.frequency} Hz`;
                     frequency = parseInt(data.frequency)

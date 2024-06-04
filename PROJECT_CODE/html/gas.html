@@ -89,6 +89,8 @@
             fetch('https://raspberrypi-fr.local:8050/gas', { headers: { 'Accept': 'application/json' } })
                 .then(response => response.json())
                 .then(data => {
+                    //put data in french format
+
                     let timestamp = new Date(data.timestamp);
 
                     dataTable.addRow([timestamp, Number(data.oxidising) / 1000, Number(data.reducing) / 1000, Number(data.nh3) / 1000]);

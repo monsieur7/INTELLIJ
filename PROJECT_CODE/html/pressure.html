@@ -67,6 +67,7 @@
             <p id="pressure-value">Loading...</p>
             <p id="pressure-date">Loading...</p>
             <p id="pressure-frequency">Loading...</p>
+            <p id="altitude">Loading...</p>
         </div>
         <div id="charts"></div>
         <button id="back-button">Return</button>
@@ -99,6 +100,12 @@
                     frequency = parseInt(data.frequency)
                 })
                 .catch(error => console.error('Error fetching humidity data:', error));
+            fetch('https://raspberrypi-fr.local:8050/altitude')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('altitude').textContent = `Altitude: ${data.value} m`;
+                })
+                .catch(error => console.error('Error fetching altitude data:', error));
 
         }
         function drawChart() {

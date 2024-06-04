@@ -6,6 +6,7 @@ import subprocess
 import psutil
 from flask import Flask, jsonify, request, Response
 from flask_cors import CORS
+from flask_sock import Sock
 from smbus import SMBus
 from bme280 import BME280
 from ltr559 import LTR559
@@ -20,6 +21,7 @@ import multiprocessing
 import ssl
 import requests
 app = Flask(__name__)
+sock = Sock(app)
 CORS(app)  # Activate CORS on the app
 app.config['CORS_HEADERS'] = 'Content-Type' # Set CORS headers
 #see https://flask-cors.readthedocs.io/en/v1.7.4/
@@ -49,6 +51,7 @@ mic = mic.Mic()
 # Redis Queue setup
 q = Queue(connection=conn)
 
+
 def is_python_script_running(script_name):
     for process in psutil.process_iter(['cmdline']):
         try:
@@ -75,7 +78,14 @@ def get_temperature():
     timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
     app.logger.info(f"Measurement info - normal: {t_measurement_normal}, standby: {t_standby}, frequency: {freq_bme280} Hz")
     return jsonify({'value': temperature, 'timestamp': timestamp, 'frequency': freq_bme280, 'unit': '°C'})
-
+@sock.route("/temperature") #websocket alternative
+def get_temperature_ws():
+   while True:
+       temperature = round(bme280.get_temperature())
+       timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
+       app.logger.info(f"Measurement info - normal: {t_measurement_normal}, standby: {t_standby}, frequency: {freq_bme280} Hz")
+       yield jsonify({'value': temperature, 'timestamp': timestamp, 'frequency': freq_bme280, 'unit': '°C'})
+       time.sleep(1/freq_bme280) #wait for the next measurement
 @app.route('/pressure', methods=['GET'])
 def get_pressure():
     pressure = round(bme280.get_pressure())

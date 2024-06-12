@@ -21,7 +21,7 @@ function publishSensorData(sensor, data) {
     const topic = `sensors/${sensor}`;
     const payload = JSON.stringify(data);
     const QOS = 1
-    
+
 
     client.publish(topic, payload, { qos: QOS }, function (err) {
         if (err) {
@@ -52,6 +52,7 @@ setInterval(() => {
     fetchAndPublishData('gas');
     fetchAndPublishData('humidity');
     fetchAndPublishData('pressure');
+    fetchAndPublishData("altitude")
 },
     10000)
 

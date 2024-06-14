@@ -61,7 +61,6 @@
     <div class="container">
         <h1>Gas Details</h1>
 
-        <!-- Conteneur pour les détails du capteur de lumière -->
         <div id="gas-details">
             <h2>Gas</h2>
             <p id="oxidising">Loading...</p>
@@ -70,10 +69,10 @@
             <p id="gas-date">Loading...</p>
         </div>
 
-        <!-- Conteneur pour le graphique -->
+        <!-- Container for the Graph -->
         <div id="chart_div"></div>
 
-        <!-- Bouton Retour -->
+        <!-- Back Button -->
         <button id="back-button">Retour</button>
     </div>
 
@@ -101,9 +100,9 @@
 
                     drawChart();
 
-                    document.getElementById('oxidising').textContent = `Oxidising: ${Number(data.oxidising / 1000).toFixed(2)} kΩ`;
-                    document.getElementById('reducing').textContent = `Reducing: ${Number(data.reducing / 1000).toFixed(2)} kΩ`;
-                    document.getElementById('nh3').textContent = `NH3: ${Number(data.nh3 / 1000).toFixed(2)} kΩ`;
+                    document.getElementById('oxidising').textContent = `Oxidising: ${Number(data.oxidising / 1000).toFixed(2)} ${data.unit}`;
+                    document.getElementById('reducing').textContent = `Reducing: ${Number(data.reducing / 1000).toFixed(2)} ${data.unit}`;
+                    document.getElementById('nh3').textContent = `NH3: ${Number(data.nh3 / 1000).toFixed(2)} ${data.unit}`;
                     document.getElementById('gas-date').textContent = `Date: ${timestamp.toLocaleString()}`;
                 })
                 .catch(error => console.error('Error fetching gas data:', error));
@@ -139,7 +138,7 @@
             setInterval(getGas, 1000);
         }
 
-        // Ajout d'un gestionnaire d'événements pour le bouton Retour
+        // Adding an event handler for the Back button
         document.getElementById('back-button').addEventListener('click', function () {
             history.back();
         });

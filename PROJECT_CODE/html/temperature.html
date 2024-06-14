@@ -96,7 +96,7 @@
                         drawChart();
                     }
                     // Display data in the HTML page
-                    document.getElementById('temperature-value').textContent = `Value: ${data.value}°C`;
+                    document.getElementById('temperature-value').textContent = `Value: ${data.value}${data.unit}`;
                     document.getElementById('temperature-date').textContent = `Date: ${data.timestamp}`;
                     document.getElementById('temperature-frequency').textContent = `Frequency: ${data.frequency} Hz`;
                     frequency = parseInt(data.frequency);

@@ -93,7 +93,7 @@
                         }
                         drawChart();
                     }
-                    document.getElementById('humidity-value').textContent = `Value: ${data.value}%`;
+                    document.getElementById('humidity-value').textContent = `Value: ${data.value} ${data.unit}`;
                     document.getElementById('humidity-date').textContent = `Date: ${data.timestamp}`;
                     document.getElementById('humidity-frequency').textContent = `Frequency: ${data.frequency} Hz`;
                     frequency = parseInt(data.frequency)
